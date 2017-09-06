@@ -35,7 +35,7 @@ cmd='''#!/bin/sh
 %s'''%(opt['n'], opt['n'], opt['nt'], opt['nc'], opt['m'], opt['g'], opt['t'],
     opt['o'], opt['c'])
 
-s = u"echo '%s' | sbatch "%cmd
+s = u'''echo \"%s\" | sbatch '''%cmd
 print s
 
 os.system(s)
