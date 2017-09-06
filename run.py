@@ -6,9 +6,9 @@ ap = parser.add_argument
 ap('-c', type=str, help='command', required=True)
 ap('-n', type=int, help='num. nodes', default=1)
 ap('--nt', type=int, help='tasks per node', default=1)
-ap('--nc', type=int, help='num. cpus', default=2)
-ap('--mem', type=int, help='mem (GB)', default=4)
-ap('-g', type=int, help='num. gpus', default=4)
+ap('--nc', type=int, help='cpus per task', default=2)
+ap('-m', type=int, help='mem (GB)', default=4)
+ap('-g', type=int, help='gpus per node', default=4)
 ap('-t', type=str, help='estimated time', default='01:00:00')
 ap('-o', type=str, help='output', default='')
 opt = vars(parser.parse_args())
@@ -32,10 +32,10 @@ cmd='''#!/bin/sh
 #SBATCH --time=%s
 #SBATCH --output=%s
 
-%s'''%(opt['n'], opt['n'], opt['nt'], opt['nc'], opt['mem'], opt['g'], opt['t'],
+%s'''%(opt['n'], opt['n'], opt['nt'], opt['nc'], opt['m'], opt['g'], opt['t'],
     opt['o'], opt['c'])
 
 s = u"echo '%s' | sbatch "%cmd
 print s
 
-#os.system(s)
+os.system(s)
