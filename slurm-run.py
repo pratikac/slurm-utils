@@ -1,3 +1,5 @@
+#!/home/pratikac/anaconda2/bin/python
+
 import numpy as np
 import os, sys, argparse, time
 
@@ -18,8 +20,8 @@ if opt['g'] < 4:
 else:
     opt['g'] = 'gpu:lgpu:%d'%opt['g']
 
-opt['o'] = time.strftime('(%b_%d_%H_%M_%S)') + '.out'
-
+loc = '/home/pratikac/local2/pratikac/results/'
+opt['o'] = loc + time.strftime('%b_%d_%H_%M_%S') + '.out'
 
 cmd='''#!/bin/sh
 
