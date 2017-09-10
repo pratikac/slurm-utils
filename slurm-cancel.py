@@ -26,3 +26,5 @@ for i in opt['i']:
     if i >= 0:
         c = 'scancel %d'%(idxs[i])
         p = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
+        r, err = p.communicate()
+        print 'Canceled: ', idxs[i]
