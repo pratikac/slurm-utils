@@ -7,11 +7,12 @@ ap = parser.add_argument
 ap('-u', type=str, help='username', default='pratikac')
 ap('-i', type=int, nargs='*', help='idx of jobs', default=[-1])
 opt = vars(parser.parse_args())
-print opt
+#print opt
 
 c = 'squeue -u %s'%(opt['u'])
 p = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
 r, _ = p.communicate()
+print r
 r = r.strip().rstrip().split('\n')[1:]
 idxs = []
 for _r in r:

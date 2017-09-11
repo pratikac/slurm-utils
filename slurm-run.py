@@ -3,9 +3,11 @@
 import numpy as np
 import os, sys, argparse, time
 
-parser = argparse.ArgumentParser('slurm jobber')
+parser = argparse.ArgumentParser('slurm jobber',
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 ap = parser.add_argument
 ap('-c', type=str, help='command', required=True)
+ap('--name', type=str, help='job name', default'')
 ap('-n', type=int, help='num. nodes', default=1)
 ap('--nt', type=int, help='tasks per node', default=1)
 ap('--nc', type=int, help='cpus per task', default=2)
@@ -23,8 +25,12 @@ else:
 loc = '/home/pratikac/local2/pratikac/results/'
 opt['o'] = loc + time.strftime('%b_%d_%H_%M_%S') + '.out'
 
+if opt['name'] == '':
+    opt['name'] = 'sbatch'
+
 cmd='''#!/bin/sh
 
+#SBATCH --job-name=%s
 #SBATCH --nodes=%d
 #SBATCH --ntasks=%d
 #SBATCH --tasks-per-node=%d
@@ -34,7 +40,7 @@ cmd='''#!/bin/sh
 #SBATCH --time=%s
 #SBATCH --output=%s
 
-%s'''%(opt['n'], opt['n'], opt['nt'], opt['nc'], opt['m'], opt['g'], opt['t'],
+%s'''%(opt['name'], opt['n'], opt['n'], opt['nt'], opt['nc'], opt['m'], opt['g'], opt['t'],
     opt['o'], opt['c'])
 
 s = u'''echo \"%s\" | sbatch '''%cmd
