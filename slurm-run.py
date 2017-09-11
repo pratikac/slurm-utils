@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser('slurm jobber',
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 ap = parser.add_argument
 ap('-c', type=str, help='command', required=True)
-ap('--name', type=str, help='job name', default'')
+ap('--name', type=str, help='job name', default'sbatch')
 ap('-n', type=int, help='num. nodes', default=1)
 ap('--nt', type=int, help='tasks per node', default=1)
 ap('--nc', type=int, help='cpus per task', default=2)
@@ -23,10 +23,7 @@ else:
     opt['g'] = 'gpu:lgpu:%d'%opt['g']
 
 loc = '/home/pratikac/local2/pratikac/results/'
-opt['o'] = loc + time.strftime('%b_%d_%H_%M_%S') + '.out'
-
-if opt['name'] == '':
-    opt['name'] = 'sbatch'
+opt['o'] = loc + time.strftime('%b_%d_%H_%M_%S_') + opt['name'] + '.out'
 
 cmd='''#!/bin/sh
 
