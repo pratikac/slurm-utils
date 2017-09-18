@@ -1,6 +1,6 @@
 #!/home/pratikac/anaconda2/bin/python
 
-import os, sys, argparse, subprocess
+import os, sys, argparse, subprocess, time
 
 parser = argparse.ArgumentParser('slurm cancel')
 ap = parser.add_argument
@@ -12,7 +12,8 @@ opt = vars(parser.parse_args())
 c = 'squeue -u %s'%(opt['u'])
 p = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
 r, _ = p.communicate()
-print r
+if opt['i'][0] == -1:
+    print r
 r = r.strip().rstrip().split('\n')[1:]
 idxs = []
 for _r in r:
@@ -29,3 +30,10 @@ for i in opt['i']:
         p = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
         r, err = p.communicate()
         print 'Canceled: ', idxs[i]
+
+if not opt['i'][0] == -1:
+    time.sleep(5)
+    c = 'squeue -u %s'%(opt['u'])
+    p = subprocess.Popen(c, shell=True, stdout=subprocess.PIPE)
+    r, _ = p.communicate()
+    print r

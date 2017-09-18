@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser('slurm jobber',
             formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 ap = parser.add_argument
 ap('-c', type=str, help='command', required=True)
-ap('--name', type=str, help='job name', default'sbatch')
+ap('--name', type=str, help='job name', default='sbatch')
 ap('-n', type=int, help='num. nodes', default=1)
 ap('--nt', type=int, help='tasks per node', default=1)
 ap('--nc', type=int, help='cpus per task', default=2)
